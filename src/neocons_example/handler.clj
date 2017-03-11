@@ -9,8 +9,8 @@
             [compojure.route                  :as route]))
 
 
-(def conn (nr/connect "http://localhost:7474/db/data/"))
-
+; docker.bravo.sitesoftllc.net <==> 45.31.163.169
+(def conn (nr/connect "http://neo4j:neoneo@45.31.163.169:7474/db/data/"))
 
 (def graph-query "MATCH (m:Movie)<-[:ACTED_IN]-(a:Person)
                   RETURN m.title as movie, collect(a.name) as cast
