@@ -12,6 +12,26 @@
 ; docker.bravo.sitesoftllc.net <==> 45.31.163.169
 (def conn (nr/connect "http://neo4j:neoneo@45.31.163.169:7474/db/data/"))
 
+
+;; Teh new hotness -- goal endpoint stuff
+
+(def goal-query
+  "OPTIONAL MATCH (g:Goal)<-[:OWNS]-(p:Person)
+   RETURN g as goal, p as owner;")
+
+(defn goal-data-extract [{:strs [goal owner]}]
+  (let [goal-data (:data goal)
+        owner-data (:data owner)]
+    (assoc goal-data :owner owner-data)))
+
+(defn get-goals
+  []
+  (let [result (cy/tquery conn goal-query)]
+    (map goal-data-extract result)))
+
+;; END of Teh new hotness
+
+
 (def graph-query "MATCH (m:Movie)<-[:ACTED_IN]-(a:Person)
                   RETURN m.title as movie, collect(a.name) as cast
                   LIMIT {limit};")
@@ -65,12 +85,15 @@
 
 
 (defroutes app-routes
+  ;; Demo App stuff
   (GET "/" [] (resp/redirect "index.html"))
   (GET "/graph" [limit] (resp/response
                          (get-graph limit)))
   (GET "/search" [q] (resp/response
                       (get-search q)))
   (GET "/movie/:title" [title] (resp/response (get-movie title)))
+  ;; Hackathon stuff for realz
+  (GET "/goals" [] (resp/response (get-goals)))
   (route/resources "/")
   (route/not-found "Not Found"))
 
