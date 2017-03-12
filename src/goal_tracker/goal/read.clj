@@ -1,4 +1,4 @@
-(ns goal-tracker.goal
+(ns goal-tracker.goal.read
   (:require [clojurewerkz.neocons.rest.cypher :as cy]))
 
 (def goal-query
