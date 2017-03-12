@@ -81,7 +81,9 @@
 
   ;; Hackathon stuff for realz
   (GET "/goals" [owner id] (resp/response (goals-read/get-goals conn owner id)))
-  (PUT "/goals" [nodeid start end description] (resp/response (goals-update/update-goals conn nodeid start end description)))
+  (GET "/goals/:id" [id] (resp/response (goals-read/get-goals conn nil id)))
+  (PUT "/goals/:id" [id start end description]
+       (resp/response (goals-update/update-goals conn id start end description)))
 
   (route/resources "/")
   (route/not-found "Not Found"))

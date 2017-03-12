@@ -16,6 +16,3 @@
     description (or description (get res "description"))]
 
     (cy/tquery conn update-goal-by-id {:id nodeid :description description :start start :end end})))
-
-  ;(nn/set-property conn (:id (str myid)) :description "Blah")))
-  ;(nn/update conn (:id myid) {:id goalid :start start :end end :description description})))
