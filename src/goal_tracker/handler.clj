@@ -6,6 +6,7 @@
             [compojure.handler                :as handler]
             [ring.util.response               :as resp]
             [ring.middleware.json             :as rj]
+            [ring.middleware.cors             :refer [wrap-cors]]
             [compojure.route                  :as route]
             [goal-tracker.goals.create         :as goals-create]
             [goal-tracker.goals.read           :as goals-read]
@@ -79,13 +80,13 @@
   (GET "/movie/:title" [title] (resp/response (get-movie title)))
 
   ;; Hackathon stuff for realz
-  (GET "/goals" [owner] (resp/response (goals-read/get-goals conn owner)))
+  (GET "/goals" [owner id] (resp/response (goals-read/get-goals conn owner id)))
 
   (route/resources "/")
   (route/not-found "Not Found"))
 
-
 (def app
   (-> app-routes
       (handler/site)
+      (wrap-cors #".*") ;; I don't know if this is working...
       (rj/wrap-json-response)))
