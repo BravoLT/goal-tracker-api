@@ -2,7 +2,7 @@
   (:require [clojure.string                   :refer [blank?]]
             [clojurewerkz.neocons.rest        :as nr]
             [clojurewerkz.neocons.rest.cypher :as cy]
-            [compojure.core                   :refer [GET defroutes]]
+            [compojure.core                   :refer [GET PUT defroutes]]
             [compojure.handler                :as handler]
             [ring.util.response               :as resp]
             [ring.middleware.json             :as rj]
@@ -80,6 +80,7 @@
 
   ;; Hackathon stuff for realz
   (GET "/goals" [] (resp/response (goals-read/get-goals conn)))
+  (PUT "/goals" [nodeid start end description] (resp/response (goals-update/update-goals conn nodeid start end description)))
 
   (route/resources "/")
   (route/not-found "Not Found"))
