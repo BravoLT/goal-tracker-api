@@ -1,4 +1,4 @@
-(ns neocons-example.handler
+(ns goal-tracker.handler
   (:require [clojure.string                   :refer [blank?]]
             [clojurewerkz.neocons.rest        :as nr]
             [clojurewerkz.neocons.rest.cypher :as cy]
