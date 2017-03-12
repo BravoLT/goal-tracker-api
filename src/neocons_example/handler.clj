@@ -6,11 +6,13 @@
             [compojure.handler                :as handler]
             [ring.util.response               :as resp]
             [ring.middleware.json             :as rj]
-            [compojure.route                  :as route]))
+            [compojure.route                  :as route]
+            [goal-tracker.goal                :as goal]))
 
 
 ; docker.bravo.sitesoftllc.net <==> 45.31.163.169
 (def conn (nr/connect "http://neo4j:neoneo@45.31.163.169:7474/db/data/"))
+
 
 (def graph-query "MATCH (m:Movie)<-[:ACTED_IN]-(a:Person)
                   RETURN m.title as movie, collect(a.name) as cast
@@ -65,12 +67,17 @@
 
 
 (defroutes app-routes
+  ;; Demo App stuff
   (GET "/" [] (resp/redirect "index.html"))
   (GET "/graph" [limit] (resp/response
                          (get-graph limit)))
   (GET "/search" [q] (resp/response
                       (get-search q)))
   (GET "/movie/:title" [title] (resp/response (get-movie title)))
+
+  ;; Hackathon stuff for realz
+  (GET "/goals" [] (resp/response (goal/get-goals conn)))
+
   (route/resources "/")
   (route/not-found "Not Found"))
 
