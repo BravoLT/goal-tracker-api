@@ -79,7 +79,7 @@
   (GET "/movie/:title" [title] (resp/response (get-movie title)))
 
   ;; Hackathon stuff for realz
-  (GET "/goals" [] (resp/response (goals-read/get-goals conn)))
+  (GET "/goals" [owner] (resp/response (goals-read/get-goals conn owner)))
 
   (route/resources "/")
   (route/not-found "Not Found"))
