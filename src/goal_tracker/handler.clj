@@ -7,7 +7,10 @@
             [ring.util.response               :as resp]
             [ring.middleware.json             :as rj]
             [compojure.route                  :as route]
-            [goal-tracker.goal.read           :as goal-read]))
+            [goal-tracker.goals.create         :as goals-create]
+            [goal-tracker.goals.read           :as goals-read]
+            [goal-tracker.goals.update         :as goals-update]
+            [goal-tracker.goals.delete         :as goals-delete]))
 
 
 ; docker.bravo.sitesoftllc.net <==> 45.31.163.169
@@ -76,7 +79,7 @@
   (GET "/movie/:title" [title] (resp/response (get-movie title)))
 
   ;; Hackathon stuff for realz
-  (GET "/goals" [] (resp/response (goal-read/get-goals conn)))
+  (GET "/goals" [] (resp/response (goals-read/get-goals conn)))
 
   (route/resources "/")
   (route/not-found "Not Found"))
