@@ -6,6 +6,9 @@
                  [clojurewerkz/neocons "3.1.0"]
                  [ring/ring-json "0.5.0-beta1"]]
   :plugins [[lein-ring "0.11.0"]]
-  :ring {:handler goal-tracker.handler/app}
+  :ring {:handler goal-tracker.handler/app
+	 :auto-reload? true
+	 :auto-refresh? true
+	}
   :profiles {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                                   [ring-mock "0.1.5"]]}})
