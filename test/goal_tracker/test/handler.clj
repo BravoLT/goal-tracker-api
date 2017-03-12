@@ -1,6 +1,6 @@
-(ns neocons.test.handler
+(ns goal-tracker.test.handler
   (:require [clojure.test :refer :all]
-            [neocons-example.handler :refer :all]
+            [goal-tracker.handler :refer :all]
             [ring.mock.request :as mock]))
 
 (deftest test-app

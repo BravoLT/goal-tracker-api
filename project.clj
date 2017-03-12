@@ -1,4 +1,4 @@
-(defproject neocons-example "0.1.0-SNAPSHOT"
+(defproject goal-tracker "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.9.0-alpha14"]
